@@ -1,111 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leave Now!!!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  margin: 0;
-  overflow: hidden;
-  background: black;
-  font-family: Arial, sans-serif;
-}
+    <title>Loading...</title>
 
-/* FULL PRANK SCREEN */
-#warningOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(255,0,0,0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 999999;
-  animation: flash 0.2s infinite;
-}
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
 
-/* BIG TEXT */
-#warningText {
-  color: white;
-  font-size: 70px;
-  font-family: Impact, Arial Black, sans-serif;
-  text-align: center;
-  text-shadow: 0 0 20px black;
-  animation: shake 0.1s infinite;
-}
+        #warningOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,0,0,0.95);
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: flashRed 0.2s infinite;
+        }
 
-/* CLICK TO START (needed for sound) */
-#clickToStart {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  z-index: 1000000;
-  cursor: pointer;
-  text-align: center;
-  padding: 20px;
-}
+        #warningText {
+            color: white;
+            font-size: 70px;
+            font-family: Impact, Arial Black, sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 0 20px black;
+            animation: shakeText 0.1s infinite;
+            padding: 20px;
+        }
 
-/* ANIMATIONS */
-@keyframes flash {
-  0% { background: rgba(255,0,0,0.95); }
-  50% { background: rgba(120,0,0,0.95); }
-  100% { background: rgba(255,0,0,0.95); }
-}
+        @keyframes flashRed {
+            0% { background: rgba(255,0,0,0.95); }
+            50% { background: rgba(80,0,0,0.95); }
+            100% { background: rgba(255,0,0,0.95); }
+        }
 
-@keyframes shake {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(3px,-3px); }
-  50% { transform: translate(-3px,3px); }
-  75% { transform: translate(3px,3px); }
-  100% { transform: translate(-3px,-3px); }
-}
-</style>
+        @keyframes shakeText {
+            0% { transform: translate(0px,0px); }
+            25% { transform: translate(-3px,3px); }
+            50% { transform: translate(3px,-3px); }
+            75% { transform: translate(3px,3px); }
+            100% { transform: translate(-3px,-3px); }
+        }
+    </style>
 
 </head>
 
 <body>
 
-<!-- PRANK SCREEN (ONLY THING VISIBLE) -->
 <div id="warningOverlay">
-  <div id="warningText">WHY ARE YOU HERE!!!</div>
+    <div id="warningText">WHY ARE YOU HERE!!!</div>
 </div>
 
-<!-- CLICK TO ENABLE SOUND -->
-<div id="clickToStart">
-  🔊 CLICK ANYWHERE TO START
-</div>
-
-<!-- SOUND -->
-<audio id="sirenAudio" loop>
-  <source src="https://actions.google.com/sounds/v1/alarms/siren_whistle.ogg">
+<!-- SOUND (YOUR GITHUB FILE) -->
+<audio id="roarAudio" loop>
+    <source src="t-rex-roar.mp3" type="audio/mp3">
 </audio>
 
 <script>
-const clickScreen = document.getElementById("clickToStart");
-const audio = document.getElementById("sirenAudio");
+window.addEventListener("load", () => {
 
-clickScreen.addEventListener("click", () => {
+    document.title = "Fun Games!!!";
 
-  // hide click screen
-  clickScreen.style.display = "none";
+    const roar = document.getElementById("roarAudio");
 
-  // set volume + play sound
-  audio.volume = 2;
+    // MAX VOLUME + LOOP FOREVER
+    roar.volume = 1.0;
+    roar.loop = true;
 
-  audio.play().catch(err => {
-    console.log("Audio blocked:", err);
-  });
+    // Try autoplay instantly
+    const playPromise = roar.play();
 
-  // optional: make it more intense after start
-  document.title = "Leave Now!!!";
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // If blocked, start on first click
+            document.body.addEventListener("click", () => {
+                roar.play();
+            }, { once: true });
+        });
+    }
+
 });
 </script>
 
