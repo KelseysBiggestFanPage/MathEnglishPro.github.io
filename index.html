@@ -1,101 +1,175 @@
-<!-- PRANK MODE -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Learning Is Fun!</title>
+
 <style>
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: black;
+}
+
+/* ===== LOADING BANNER ===== */
 #loadingBanner{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#111;
-    color:white;
-    text-align:center;
-    padding:20px;
-    font-size:32px;
-    font-family:Arial,sans-serif;
-    z-index:999998;
-    animation:pulseBanner 1s infinite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 28px;
+  z-index: 999999;
+  animation: pulseBanner 1s infinite;
 }
 
-@keyframes pulseBanner{
-    0%{background:#111;}
-    50%{background:#333;}
-    100%{background:#111;}
+@keyframes pulseBanner {
+  0% { background: #111; }
+  50% { background: #333; }
+  100% { background: #111; }
 }
 
+/* ===== MAIN CONTENT ===== */
+#siteContent {
+  margin-top: 80px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: #222;
+  padding: 10px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+}
+
+/* ===== PRANK OVERLAY ===== */
 #warningOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(255,0,0,0.9);
-    z-index: 999999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    animation: flashRed 0.2s infinite;
+  position: fixed;
+  inset: 0;
+  background: rgba(255,0,0,0.9);
+  z-index: 9999999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: flashRed 0.2s infinite;
 }
 
 #warningText {
-    color: white;
-    font-size: 70px;
-    font-family: Impact, Arial Black, sans-serif;
-    text-transform: uppercase;
-    text-align: center;
-    text-shadow: 0 0 20px black;
-    animation: shakeText 0.1s infinite;
-    padding:20px;
+  color: white;
+  font-size: 60px;
+  font-family: Impact, Arial Black, sans-serif;
+  text-align: center;
+  text-shadow: 0 0 20px black;
+  animation: shakeText 0.1s infinite;
 }
 
 @keyframes flashRed {
-    0% { background: rgba(255,0,0,0.95); }
-    50% { background: rgba(80,0,0,0.95); }
-    100% { background: rgba(255,0,0,0.95); }
+  0% { background: rgba(255,0,0,0.95); }
+  50% { background: rgba(80,0,0,0.95); }
+  100% { background: rgba(255,0,0,0.95); }
 }
 
 @keyframes shakeText {
-    0% { transform: translate(0px,0px); }
-    25% { transform: translate(3px,-3px); }
-    50% { transform: translate(-3px,3px); }
-    75% { transform: translate(3px,3px); }
-    100% { transform: translate(-3px,-3px); }
+  0% { transform: translate(0,0); }
+  25% { transform: translate(3px,-3px); }
+  50% { transform: translate(-3px,3px); }
+  75% { transform: translate(3px,3px); }
+  100% { transform: translate(-3px,-3px); }
 }
 </style>
 
+</head>
+
+<body>
+
+<!-- LOADING BANNER -->
 <div id="loadingBanner">
-    PLEASE WAIT WHILE THE GAMES LOAD!
+  PLEASE WAIT WHILE THE GAMES LOAD!
 </div>
 
+<!-- PRANK OVERLAY -->
 <div id="warningOverlay">
-    <div id="warningText">
-        WHY ARE YOU HERE!!!
-    </div>
+  <div id="warningText">WHY ARE YOU HERE!!!</div>
 </div>
 
+<!-- NORMAL WEBSITE -->
+<div id="siteContent">
+
+  <!-- NAV -->
+  <div class="navbar">
+    <ul class="menu">
+      <li><a href="/classroom/new.html">New</a></li>
+      <li><a href="/classroom/popular.html">Hot</a></li>
+      <li><a href="/classroom/driving.html">Driving</a></li>
+      <li><a href="/classroom/multiplayer.html">Multiplayer</a></li>
+    </ul>
+  </div>
+
+  <!-- GAME -->
+  <div style="padding:20px;">
+    <iframe
+      src="slope/"
+      width="100%"
+      height="600"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- SECTIONS -->
+  <div style="color:white; padding:20px;">
+    <h2>About Lessons</h2>
+  </div>
+
+</div>
+
+<!-- AUDIO -->
 <audio id="sirenAudio" loop>
-    <source src="https://actions.google.com/sounds/v1/alarms/siren_whistle.ogg" type="audio/ogg">
+  <source src="https://actions.google.com/sounds/v1/alarms/siren_whistle.ogg">
 </audio>
 
 <script>
-
-// after 15 seconds
+/* ===== START FLOW ===== */
 setTimeout(() => {
 
-    // change tab title
-    document.title = "Fun Games!!!";
+  // hide banner
+  document.getElementById("loadingBanner").style.display = "none";
 
-    // hide loading banner
-    document.getElementById("loadingBanner").style.display = "none";
+  // show prank overlay
+  document.getElementById("warningOverlay").style.display = "flex";
 
-    // show flashing overlay
-    document.getElementById("warningOverlay").style.display = "flex";
+  // change title
+  document.title = "Fun Games!!!";
 
-    // play siren
-    const siren = document.getElementById("sirenAudio");
+  // play sound
+  const audio = document.getElementById("sirenAudio");
+  audio.volume = 1.0;
 
-    siren.volume = 1.0;
-
-    siren.play().catch(() => {
-        console.log("Autoplay blocked until interaction.");
-    });
+  audio.play().catch(() => {
+    console.log("Autoplay blocked until user clicks.");
+  });
 
 }, 15000);
-
 </script>
+
+</body>
+</html>
