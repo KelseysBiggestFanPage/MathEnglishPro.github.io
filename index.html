@@ -1,94 +1,66 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Learning Is Fun!</title>
+<title>Fun Games!!!</title>
 
 <style>
-/* ===== GLOBAL ===== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  overflow: hidden;
   background: black;
+  font-family: Arial, sans-serif;
 }
 
-/* ===== LOADING BANNER ===== */
-#loadingBanner{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-size: 28px;
-  z-index: 999999;
-  animation: pulseBanner 1s infinite;
-}
-
-@keyframes pulseBanner {
-  0% { background: #111; }
-  50% { background: #333; }
-  100% { background: #111; }
-}
-
-/* ===== MAIN CONTENT ===== */
-#siteContent {
-  margin-top: 80px;
-}
-
-/* ===== NAVBAR ===== */
-.navbar {
-  background: #222;
-  padding: 10px;
-}
-
-.menu {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-.menu a {
-  color: white;
-  text-decoration: none;
-}
-
-/* ===== PRANK OVERLAY ===== */
+/* FULL PRANK SCREEN */
 #warningOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(255,0,0,0.9);
-  z-index: 9999999;
-  display: none;
+  background: rgba(255,0,0,0.95);
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: flashRed 0.2s infinite;
+  z-index: 999999;
+  animation: flash 0.2s infinite;
 }
 
+/* BIG TEXT */
 #warningText {
   color: white;
-  font-size: 60px;
+  font-size: 70px;
   font-family: Impact, Arial Black, sans-serif;
   text-align: center;
   text-shadow: 0 0 20px black;
-  animation: shakeText 0.1s infinite;
+  animation: shake 0.1s infinite;
 }
 
-@keyframes flashRed {
+/* CLICK TO START (needed for sound) */
+#clickToStart {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  z-index: 1000000;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ANIMATIONS */
+@keyframes flash {
   0% { background: rgba(255,0,0,0.95); }
-  50% { background: rgba(80,0,0,0.95); }
+  50% { background: rgba(120,0,0,0.95); }
   100% { background: rgba(255,0,0,0.95); }
 }
 
-@keyframes shakeText {
+@keyframes shake {
   0% { transform: translate(0,0); }
   25% { transform: translate(3px,-3px); }
   50% { transform: translate(-3px,3px); }
@@ -101,74 +73,40 @@ body {
 
 <body>
 
-<!-- LOADING BANNER -->
-<div id="loadingBanner">
-  PLEASE WAIT WHILE THE GAMES LOAD!
-</div>
-
-<!-- PRANK OVERLAY -->
+<!-- PRANK SCREEN (ONLY THING VISIBLE) -->
 <div id="warningOverlay">
   <div id="warningText">WHY ARE YOU HERE!!!</div>
 </div>
 
-<!-- NORMAL WEBSITE -->
-<div id="siteContent">
-
-  <!-- NAV -->
-  <div class="navbar">
-    <ul class="menu">
-      <li><a href="/classroom/new.html">New</a></li>
-      <li><a href="/classroom/popular.html">Hot</a></li>
-      <li><a href="/classroom/driving.html">Driving</a></li>
-      <li><a href="/classroom/multiplayer.html">Multiplayer</a></li>
-    </ul>
-  </div>
-
-  <!-- GAME -->
-  <div style="padding:20px;">
-    <iframe
-      src="slope/"
-      width="100%"
-      height="600"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <!-- SECTIONS -->
-  <div style="color:white; padding:20px;">
-    <h2>About Lessons</h2>
-  </div>
-
+<!-- CLICK TO ENABLE SOUND -->
+<div id="clickToStart">
+  🔊 CLICK ANYWHERE TO START
 </div>
 
-<!-- AUDIO -->
+<!-- SOUND -->
 <audio id="sirenAudio" loop>
   <source src="https://actions.google.com/sounds/v1/alarms/siren_whistle.ogg">
 </audio>
 
 <script>
-/* ===== START FLOW ===== */
-setTimeout(() => {
+const clickScreen = document.getElementById("clickToStart");
+const audio = document.getElementById("sirenAudio");
 
-  // hide banner
-  document.getElementById("loadingBanner").style.display = "none";
+clickScreen.addEventListener("click", () => {
 
-  // show prank overlay
-  document.getElementById("warningOverlay").style.display = "flex";
+  // hide click screen
+  clickScreen.style.display = "none";
 
-  // change title
-  document.title = "Fun Games!!!";
+  // set volume + play sound
+  audio.volume = 1;
 
-  // play sound
-  const audio = document.getElementById("sirenAudio");
-  audio.volume = 1.0;
-
-  audio.play().catch(() => {
-    console.log("Autoplay blocked until user clicks.");
+  audio.play().catch(err => {
+    console.log("Audio blocked:", err);
   });
 
-}, 15000);
+  // optional: make it more intense after start
+  document.title = "Fun Games!!!";
+});
 </script>
 
 </body>
